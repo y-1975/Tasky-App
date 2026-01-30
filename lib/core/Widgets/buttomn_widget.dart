@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/Style/app_colors.dart';
 import 'package:tasky/core/Style/app_styles.dart';
 
@@ -16,17 +15,11 @@ class ButtomWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: 40.h,
-        width: buttomWidth,
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(backgroundColor: AppColors.green15B),
-
-          child: Text(lable, style: AppTextStyles.buttomTextStyle),
-        ),
-      ),
+    return ElevatedButton(
+      onPressed: onPress,
+      style: ElevatedButton.styleFrom(backgroundColor: AppColors.green15B , fixedSize: Size(buttomWidth, 40)),
+    
+      child: Text(lable, style: AppTextStyles.buttomTextStyle),
     );
   }
 }

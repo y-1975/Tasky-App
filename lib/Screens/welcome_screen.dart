@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/Screens/home_screen.dart';
 import 'package:tasky/core/Style/app_colors.dart';
 import 'package:tasky/core/Style/app_styles.dart';
@@ -16,6 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     SizedBox(height: 8.h),
                     TextFormField(
+                      controller: _controller,
                       validator: (String? value) {
                         if (value == null || value.trim().isEmpty) {
                           return "Please enter your name";
@@ -91,16 +93,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     SizedBox(height: 24.h),
                     ButtomWidget(
                       lable: 'Let\'s Get Started',
-                      onPress: () {
-                        _key.currentState?.validate();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
+                      onPress: () async {
+                        if (_key.currentState?.validate() ?? false) {
+                          final pref = await SharedPreferences.getInstance();
+                         await pref.setString('username', _controller.value.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return HomeScreen();
+                              },
+                            ),
+                          );
+                        }
                       },
                       buttomWidth: 343.h,
                     ),

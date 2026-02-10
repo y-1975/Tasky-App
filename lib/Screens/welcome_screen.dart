@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/Screens/home_screen.dart';
 import 'package:tasky/core/Style/app_colors.dart';
 import 'package:tasky/core/Style/app_styles.dart';
-import 'package:tasky/core/Widgets/buttomn_widget.dart';
+import 'package:tasky/core/Widgets/button_widget.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -91,12 +91,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                     SizedBox(height: 24.h),
-                    ButtomWidget(
+                    ButtonWidget(
                       lable: 'Let\'s Get Started',
                       onPress: () async {
                         if (_key.currentState?.validate() ?? false) {
                           final pref = await SharedPreferences.getInstance();
-                         await pref.setString('username', _controller.value.text);
+                          await pref.setString(
+                            'userName',
+                            _controller.value.text,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(

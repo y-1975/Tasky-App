@@ -1,16 +1,32 @@
 class TaskModel {
+  static const String taskNameKey = "taskName";
+  static const String taskDescKey = "taskDecs";
+  static const String isHPKey = "isHP";
+
   final String taskName;
-  final String? taskDesc;
+  final String taskDesc;
+  final bool isHighPriority;
   bool isDone = false;
-  bool isHighPriority = false;
 
-  TaskModel({ required this.taskName, this.taskDesc});
+  TaskModel({
+    required this.taskName,
+    required this.taskDesc,
+    required this.isHighPriority,
+  });
 
-  void setHighPriority() {
-    isHighPriority =  !isHighPriority;
+  Map<String, dynamic> toJson() {
+    return {
+      taskNameKey : taskName,
+      taskDescKey : taskDesc,
+      isHPKey : isHighPriority,
+    };
   }
 
-  void doneTask() {
-    isDone =  !isDone;
-  }
+  // void setHighPriority(bool value) {
+  //   isHighPriority = value;
+  // }
+
+  // void doneTask() {
+  //   isDone = !isDone;
+  // }
 }
